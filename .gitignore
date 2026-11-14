@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Astro & Build outputs
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# Environment variables & Secrets (CRITICAL: never commit tokens/passwords)
+.env
+.env.*
+!.env.example
+
+# Graphify AST cache & generated graphs
+graphify-out/
+.graphify_cache/
+
+# AI Agent local session caches & temp files
+.claude/settings.local.json
+.claude/*.log
+.codex/
+.aider*
+
+# TypeScript & Testing caches
+*.tsbuildinfo
+.eslintcache
+coverage/
+
+# macOS / Windows / IDE files
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo

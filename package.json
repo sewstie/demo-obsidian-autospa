@@ -1,0 +1,43 @@
+{
+  "name": "local-biz-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && tsc --noEmit",
+    "check:slop": "node scripts/check-slop.mjs",
+    "verify": "npm run check:slop && npm run check && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/react": "^7.1.7",
+    "@hookform/resolvers": "^7.0.5",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.10",
+    "lucide-react": "^1.71.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.91.0",
+    "tailwindcss": "^4.3.5",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@astrojs/vercel": "^11.0.21",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "glob": "^14.0.4",
+    "minimatch": "^11.0.7",
+    "path-to-regexp": "^6.3.0"
+  }
+}
