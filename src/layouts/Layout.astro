@@ -16,7 +16,7 @@ const schema = {
     addressRegion: business.region, postalCode: business.postalCode, addressCountry: 'US' },
   areaServed: business.serviceArea, openingHours: business.hoursSchema,
   hasOfferCatalog: { '@type': 'OfferCatalog', name: site.pricing.heading, itemListElement: site.packages.map(item => ({
-    '@type': 'Offer', price: item.price, priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: item.subtitle },
+    '@type': 'Offer', price: Math.min(...Object.values(item.prices)), priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: item.subtitle },
   })) },
 };
 ---

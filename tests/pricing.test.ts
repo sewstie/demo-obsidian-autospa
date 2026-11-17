@@ -9,7 +9,7 @@ const data = JSON.parse(readFileSync('src/data/site.json', 'utf8')) as unknown;
 const site = siteSchema.parse(data);
 
 test('every package updates price and duration for all vehicle sizes', () => {
-  const expectedPrices = [[175, 210, 245], [650, 780, 910], [1495, 1794, 2093]];
+  const expectedPrices = [[175, 215, 245], [650, 795, 895], [1495, 1795, 2095]];
   site.packages.forEach((treatment, row) => site.vehicles.forEach((vehicle, column) => {
     const result = quote(treatment, vehicle);
     assert.equal(result.price, expectedPrices[row][column]);
@@ -21,7 +21,11 @@ test('every package updates price and duration for all vehicle sizes', () => {
 test('content rejects unsafe images, duplicate IDs and negative pricing', () => {
   assert.equal(siteSchema.safeParse({ ...site, hero: { ...site.hero, image: { src: 'javascript:alert(1)', alt: 'Invalid' } } }).success, false);
   assert.equal(siteSchema.safeParse({ ...site, vehicles: [site.vehicles[0], site.vehicles[0]] }).success, false);
-  assert.equal(siteSchema.safeParse({ ...site, packages: [{ ...site.packages[0], price: -1 }] }).success, false);
+  assert.equal(siteSchema.safeParse({ ...site, packages: [{ ...site.packages[0], prices: { ...site.packages[0].prices, [site.vehicles[0].id]: -1 } }] }).success, false);
+});
+
+test('every package needs a price for every vehicle size', () => {
+  assert.equal(siteSchema.safeParse({ ...site, packages: [{ ...site.packages[0], prices: {} }] }).success, false);
 });
 
 test('lead validation requires consent and a complete US phone number', () => {

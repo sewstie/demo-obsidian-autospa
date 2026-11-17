@@ -23,9 +23,9 @@ export const siteSchema = z.object({
   }),
   intro: z.object({ label: text, heading: text, description: text, link: text }),
   pricing: z.object({ label: text, heading: text, description: text, note: text, vehicleLabel: text, cta: text }),
-  vehicles: z.array(z.object({ id, name: text, description: text, coverage: text, multiplier: z.number().min(1).max(5), extraHours: z.number().min(0).max(48) })).min(1).max(5),
+  vehicles: z.array(z.object({ id, name: text, description: text, coverage: text, extraHours: z.number().min(0).max(48) })).min(1).max(5),
   packages: z.array(z.object({
-    id, name: text, subtitle: text, price: z.number().int().min(1).max(50000),
+    id, name: text, subtitle: text, prices: z.record(id, z.number().int().min(1).max(50000)), // one explicit price per vehicle size
     hours: z.number().min(0.5).max(100), duration: text, features: z.array(text).min(1).max(8),
     featured: z.boolean(), badge: text,
   })).min(1).max(6),
@@ -44,6 +44,9 @@ export const siteSchema = z.object({
       ctx.addIssue({ code: 'custom', path: [key], message: 'IDs must be unique.' });
     }
   }
+  site.packages.forEach((item, index) => site.vehicles.forEach(vehicle => {
+    if (!(vehicle.id in item.prices)) ctx.addIssue({ code: 'custom', path: ['packages', index, 'prices'], message: `Missing price for ${vehicle.id}.` });
+  }));
   if (new Set(site.booking.slots.map(slot => slot.id)).size !== site.booking.slots.length) {
     ctx.addIssue({ code: 'custom', path: ['booking', 'slots'], message: 'Slot IDs must be unique.' });
   }

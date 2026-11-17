@@ -146,7 +146,7 @@ test('buildLeadPayload computes authoritative quote using imported quote formula
     consent: true,
   };
   const payload = buildLeadPayload(lead, liveSite);
-  assert.equal(payload.quote.price, 910);
+  assert.equal(payload.quote.price, 895);
   assert.equal(payload.quote.hours, 10);
   assert.equal(payload.packageName, 'The Revival');
 });

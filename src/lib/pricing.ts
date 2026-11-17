@@ -2,7 +2,7 @@ import type { Package, Vehicle } from '../schemas/site.ts';
 
 export function quote(treatment: Package, vehicle: Vehicle) {
   return {
-    price: Math.round(treatment.price * vehicle.multiplier),
+    price: treatment.prices[vehicle.id],
     hours: treatment.hours + vehicle.extraHours,
   };
 }
