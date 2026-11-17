@@ -27,6 +27,7 @@ const schema = {
     <meta name="description" content={site.seo.description} />
     {(noindex || site.demo || site.demoBanner) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
+    {['barlow-bold', 'manrope-regular'].map(font => <link rel="preload" as="font" type="font/woff2" href={asset(`/fonts/${font}.woff2`)} crossorigin />)}
     <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

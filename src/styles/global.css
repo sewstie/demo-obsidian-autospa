@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @import "./sections.css";
 @import "./forms.css";
-@font-face { font-family: "Barlow Condensed"; src: url('../../public/fonts/barlow-bold.ttf') format('truetype'); font-style: normal; font-weight: 700; font-display: swap; }
-@font-face { font-family: Manrope; src: url('../../public/fonts/manrope-regular.ttf') format('truetype'); font-style: normal; font-weight: 400 600; font-display: swap; }
-@font-face { font-family: Manrope; src: url('../../public/fonts/manrope-bold.ttf') format('truetype'); font-style: normal; font-weight: 700 800; font-display: swap; }
+@font-face { font-family: "Barlow Condensed"; src: url('/fonts/barlow-bold.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
+@font-face { font-family: Manrope; src: url('/fonts/manrope-regular.woff2') format('woff2'); font-style: normal; font-weight: 400 600; font-display: swap; }
+@font-face { font-family: Manrope; src: url('/fonts/manrope-bold.woff2') format('woff2'); font-style: normal; font-weight: 700 800; font-display: swap; }
 /* Palette: obsidian glass, bay-light white, and the tail-light red from the hero photo. */
 @theme {
   --color-background: #08090b;
