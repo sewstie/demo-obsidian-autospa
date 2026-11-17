@@ -24,8 +24,3 @@ const { site } = Astro.props;
     </details>
   </div>
 </header>
-<script>
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'));
-  });
-</script>

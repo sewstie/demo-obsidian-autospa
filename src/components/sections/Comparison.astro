@@ -8,7 +8,7 @@ const { comparison } = Astro.props;
 <section id="difference" class="section-shell section-space comparison-grid" aria-labelledby="comparison-title">
   <div class="comparison-copy">
     <p class="section-label">{comparison.label}</p>
-    <h2 id="comparison-title" class="whitespace-pre-line">{comparison.heading}</h2>
+    <h2 id="comparison-title" tabindex="-1" class="whitespace-pre-line">{comparison.heading}</h2>
     <p class="section-description">{comparison.description}</p>
     <div class="comparison-facts">{comparison.facts.map((fact, index) => { const Icon = index === 0 ? Sparkles : ShieldCheck; return <div><Icon size={22} strokeWidth={1.5} aria-hidden="true" /><div><h3>{fact.title}</h3><p>{fact.description}</p></div></div>; })}</div>
   </div>

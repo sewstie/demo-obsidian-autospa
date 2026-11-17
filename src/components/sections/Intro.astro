@@ -5,6 +5,6 @@ interface Props { intro: Site['intro'] }
 const { intro } = Astro.props;
 ---
 <section class="section-shell section-space intro-grid" aria-labelledby="intro-title">
-  <div><p class="section-label">{intro.label}</p><h2 id="intro-title" class="whitespace-pre-line">{intro.heading}</h2></div>
+  <div><p class="section-label">{intro.label}</p><h2 id="intro-title" tabindex="-1" class="whitespace-pre-line">{intro.heading}</h2></div>
   <div class="intro-copy"><p class="section-description">{intro.description}</p><a class="text-link mt-6" href="#services">{intro.link}<ArrowUpRight size={17} aria-hidden="true" /></a></div>
 </section>

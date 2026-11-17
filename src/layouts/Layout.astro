@@ -41,6 +41,26 @@ const schema = {
     <a href="#main" class="skip-link">Skip to content</a>
     <slot />
     <script>
+      // In-page links scroll and move focus without ever putting a hash in the URL.
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      function reveal(hash: string, behavior: ScrollBehavior) {
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (!target) return false;
+        target.scrollIntoView({ behavior });
+        (document.getElementById(target.getAttribute('aria-labelledby') ?? '') ?? target).focus({ preventScroll: true });
+        return true;
+      }
+      document.addEventListener('click', event => {
+        const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]:not(.skip-link)');
+        // An island may already have handled the click (the booking CTA opens a dialog instead of scrolling).
+        if (!link || event.defaultPrevented || !reveal(link.hash, reduced.matches ? 'auto' : 'smooth')) return;
+        event.preventDefault();
+        link.closest('details')?.removeAttribute('open');
+      });
+      if (location.hash) {
+        reveal(location.hash, 'instant');
+        history.replaceState(null, '', location.pathname + location.search);
+      }
       // Inspection light: every [data-light] element under the pointer gets its position as --x / --y.
       document.addEventListener('pointermove', event => {
         if (!(event.target instanceof Element)) return;

@@ -7,7 +7,7 @@ const { gallery } = Astro.props;
 ---
 <section id="work" class="gallery-section section-space" aria-labelledby="gallery-title">
   <div class="section-shell">
-    <div class="gallery-heading"><div><p class="section-label">{gallery.label}</p><h2 id="gallery-title" class="whitespace-pre-line">{gallery.heading}</h2></div><p class="section-description">{gallery.description}</p></div>
+    <div class="gallery-heading"><div><p class="section-label">{gallery.label}</p><h2 id="gallery-title" tabindex="-1" class="whitespace-pre-line">{gallery.heading}</h2></div><p class="section-description">{gallery.description}</p></div>
     <div class="gallery-grid">{gallery.items.map(item => <figure>
       <div class="gallery-image"><img src={asset(item.image.src)} alt={item.image.alt} width="800" height="900" loading="lazy" /></div>
       <figcaption><div><h3>{item.title}</h3><p>{item.service}</p></div><ArrowUpRight size={20} strokeWidth={1.3} aria-hidden="true" /></figcaption>

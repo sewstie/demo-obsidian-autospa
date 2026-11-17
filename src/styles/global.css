@@ -24,13 +24,14 @@
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 @property --y { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 :root {
-  color-scheme: dark; font-family: var(--font-sans); font-synthesis: none; interpolate-size: allow-keywords;
+  --header-h: 76px; color-scheme: dark; font-family: var(--font-sans); font-synthesis: none; interpolate-size: allow-keywords;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --chamfer: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
   --hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97'%3E%3Cpath d='M28 0 56 16.2v32.3L28 64.7 0 48.5V16.2ZM28 64.7V97' fill='none' stroke='%23fff' stroke-opacity='.55'/%3E%3C/svg%3E");
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+section { scroll-margin-top: var(--header-h); }
+[tabindex="-1"]:focus-visible { outline-offset: 8px; }
 body { margin: 0; font-size: 1rem; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 body:has(dialog[open]) { overflow: hidden; }
 button, input, select, textarea { font: inherit; }
@@ -69,7 +70,7 @@ p { max-width: 68ch; }
 .brand:hover .brand-symbol { transform: rotate(60deg); }
 .brand-name { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .16em; line-height: 1; }
 .brand-caption { display: block; font-size: .75rem; color: var(--color-muted); margin-top: 4px; }
-.site-header { position: sticky; top: 0; z-index: 40; height: 76px; border-bottom: 1px solid rgb(255 255 255 / .08); background: rgb(8 9 11 / .78); backdrop-filter: blur(16px) saturate(1.4); }
+.site-header { position: sticky; top: 0; z-index: 40; height: var(--header-h); border-bottom: 1px solid rgb(255 255 255 / .08); background: rgb(8 9 11 / .78); backdrop-filter: blur(16px) saturate(1.4); }
 .header-inner { display: flex; height: 100%; align-items: center; justify-content: space-between; gap: 28px; }
 .desktop-nav { display: flex; align-items: center; gap: 34px; }
 .desktop-nav a { display: flex; align-items: center; min-height: 44px; font-size: .9rem; color: var(--color-muted); background: linear-gradient(var(--color-primary), var(--color-primary)) 0 calc(100% - 8px) / 0 2px no-repeat; transition: color .2s, background-size .3s var(--ease); }
@@ -81,7 +82,7 @@ p { max-width: 68ch; }
 .mobile-menu { display: none; }
 
 /* Hero: the photo sits in the dark; an inspection light follows the pointer across the paint. */
-.hero { --x: 64%; --y: 56%; position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: end; min-height: min(calc(100svh - 76px), 920px); transition: --x .3s ease-out, --y .3s ease-out; animation: light-in 2.2s var(--ease); }
+.hero { --x: 64%; --y: 56%; position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: end; min-height: min(calc(100svh - var(--header-h)), 920px); transition: --x .3s ease-out, --y .3s ease-out; animation: light-in 2.2s var(--ease); }
 .hero-image { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 62%; }
 .hero::before { content: ''; position: absolute; z-index: -2; inset: 0; pointer-events: none; background: radial-gradient(circle min(22vw, 300px) at var(--x) var(--y), rgb(255 255 255 / .13), transparent), radial-gradient(circle min(52vw, 700px) at var(--x) var(--y), transparent 10%, rgb(8 9 11 / .62) 60%, rgb(8 9 11 / .9)); }
 .hero::after { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(0deg, var(--color-background) 3%, rgb(8 9 11 / .55) 38%, transparent 62%); }
@@ -119,8 +120,7 @@ p { max-width: 68ch; }
 }
 @media (max-width: 760px) {
   .section-shell { width: calc(100% - 40px); }
-  .site-header { height: 68px; }
-  html { scroll-padding-top: 80px; }
+  :root { --header-h: 68px; }
   .desktop-nav, .header-actions { display: none; }
   .mobile-menu { display: block; }
   .mobile-menu summary { list-style: none; min-width: 44px; min-height: 44px; display: grid; place-items: center; cursor: pointer; }
@@ -137,4 +137,4 @@ p { max-width: 68ch; }
   .hero-caption { display: none; }
   body { padding-bottom: 76px; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

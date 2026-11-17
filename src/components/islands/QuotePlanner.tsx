@@ -17,7 +17,7 @@ export default function QuotePlanner({ site }: Props) {
   return <>
     <section id="services" data-light className="pricing-section section-space" aria-labelledby="pricing-title">
       <div className="section-shell">
-        <div className="pricing-heading"><p className="section-label">{site.pricing.label}</p><h2 id="pricing-title">{site.pricing.heading}</h2><p className="section-description">{site.pricing.description}</p></div>
+        <div className="pricing-heading"><p className="section-label">{site.pricing.label}</p><h2 id="pricing-title" tabIndex={-1}>{site.pricing.heading}</h2><p className="section-description">{site.pricing.description}</p></div>
         <fieldset className="vehicle-fieldset">
           <legend>{site.pricing.vehicleLabel}</legend>
           <div className="vehicle-options" style={{ '--n': site.vehicles.length, '--i': site.vehicles.indexOf(vehicle) } as CSSProperties}>{site.vehicles.map((item, index) => {
