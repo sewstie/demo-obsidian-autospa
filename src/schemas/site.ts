@@ -13,7 +13,7 @@ export const siteSchema = z.object({
     name: text, shortName: text, descriptor: text, phone, phoneDisplay: text,
     email: z.email(), city: text, region: z.string().length(2), street: text, postalCode: z.string().regex(/^\d{5}$/),
     hours: text, hoursSchema: z.string().regex(/^[A-Za-z, -]+ \d{2}:\d{2}-\d{2}:\d{2}$/),
-    url: z.url().refine(value => value.startsWith('https://')), serviceArea: text,
+    serviceArea: text,
   }),
   seo: z.object({ title: text, description: text }),
   nav: z.array(link).min(1).max(6),

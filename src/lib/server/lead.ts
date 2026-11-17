@@ -10,7 +10,7 @@ export interface LeadPayload {
   vehicleId: string; packageId: string; slotId: string;
   slotLabel: string; packageName: string; vehicleName: string;
   quote: { price: number; hours: number };
-  site: { business: string; phone: string; url: string };
+  site: { business: string; phone: string };
   submittedAt: string;
 }
 
@@ -44,7 +44,6 @@ export function buildLeadPayload(lead: Lead, site: Site): LeadPayload {
     site: {
       business: site.business.name,
       phone: site.business.phoneDisplay,
-      url: site.business.url,
     },
     submittedAt: new Date().toISOString(),
   };

@@ -7,7 +7,7 @@
     "phone": "+15085550148", "phoneDisplay": "(508) 555-0148", "email": "hello@obsidian.example",
     "city": "Worcester", "region": "MA", "street": "100 Example Drive", "postalCode": "01605",
     "hours": "Monday–Saturday, 8 am–6 pm", "hoursSchema": "Mo-Sa 08:00-18:00",
-    "url": "https://obsidian.example", "serviceArea": "Worcester County, MA"
+    "serviceArea": "Worcester County, MA"
   },
   "seo": { "title": "Obsidian Auto Spa | Paint Correction & Ceramic Coating in Worcester, MA", "description": "A finish worth protecting. Explore vehicle-specific detailing, paint correction and 5-year ceramic coating packages at Obsidian Auto Spa in Worcester, Massachusetts." },
   "nav": [ { "label": "Services", "href": "#services" }, { "label": "The difference", "href": "#difference" }, { "label": "Our work", "href": "#work" }, { "label": "Reviews", "href": "#reviews" } ],

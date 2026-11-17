@@ -5,11 +5,13 @@ import { asset } from '../lib/paths';
 interface Props { site: Site; title?: string; noindex?: boolean }
 const { site, title = site.seo.title, noindex = false } = Astro.props;
 const { business } = site;
-const canonical = new URL(Astro.url.pathname, business.url);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const home = new URL(asset('/'), Astro.site).href;
+const image = new URL(asset(site.hero.image.src), Astro.site).href;
 const schema = {
   '@context': 'https://schema.org', '@type': ['LocalBusiness', 'AutomotiveBusiness'],
-  name: business.name, description: site.seo.description, url: business.url,
-  telephone: business.phone, email: business.email, image: new URL(asset(site.hero.image.src), business.url).href,
+  name: business.name, description: site.seo.description, url: home,
+  telephone: business.phone, email: business.email, image,
   address: { '@type': 'PostalAddress', streetAddress: business.street, addressLocality: business.city,
     addressRegion: business.region, postalCode: business.postalCode, addressCountry: 'US' },
   areaServed: business.serviceArea, openingHours: business.hoursSchema,
@@ -33,7 +35,7 @@ const schema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={site.seo.description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(asset(site.hero.image.src), business.url).href} />
+    <meta property="og:image" content={image} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
     <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
