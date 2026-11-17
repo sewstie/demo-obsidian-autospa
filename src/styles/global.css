@@ -79,10 +79,6 @@ p { max-width: 68ch; }
 .phone-link { font-size: .9rem; display: flex; align-items: center; min-height: 44px; gap: 9px; }
 .phone-link:hover { color: var(--color-primary); }
 .mobile-menu { display: none; }
-.demo-banner { display: flex; align-items: center; justify-content: center; gap: 4px; padding-left: 16px; background: var(--color-foreground); color: var(--color-background); font-size: .875rem; font-weight: 700; line-height: 1.35; }
-.demo-banner a { display: flex; align-items: center; min-height: 44px; padding-block: 6px; }
-.demo-banner a:hover { text-decoration: underline; }
-.demo-banner button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 0; background: transparent; color: inherit; }
 
 /* Hero: the photo sits in the dark; an inspection light follows the pointer across the paint. */
 .hero { --x: 64%; --y: 56%; position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: end; min-height: min(calc(100svh - 76px), 920px); transition: --x .3s ease-out, --y .3s ease-out; animation: light-in 2.2s var(--ease); }

@@ -1,7 +1,7 @@
 {
   "demo": true,
   "demoBanner": true,
-  "banner": { "text": "Demo site by Vladislav Hushcha — want one for your business? →", "href": "https://web.vladislavhushcha.me", "dismissLabel": "Dismiss banner" },
+  "banner": { "text": "Demo site by Vladislav Hushcha — want one for your business? →", "shortText": "Demo by Vladislav Hushcha · Get yours →", "href": "https://web.vladislavhushcha.me", "dismissLabel": "Dismiss demo notice" },
   "business": {
     "name": "Obsidian Auto Spa & Ceramic Coating", "shortName": "OBSIDIAN", "descriptor": "Auto spa & ceramic coating",
     "phone": "+15085550148", "phoneDisplay": "(508) 555-0148", "email": "hello@obsidian.example",

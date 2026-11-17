@@ -8,7 +8,7 @@ const phone = z.string().regex(/^\+1\d{10}$/);
 export const siteSchema = z.object({
   demo: z.boolean(),
   demoBanner: z.boolean(),
-  banner: z.object({ text, href: z.url().refine(value => value.startsWith('https://')), dismissLabel: text }),
+  banner: z.object({ text, shortText: text, href: z.url().refine(value => value.startsWith('https://')), dismissLabel: text }),
   business: z.object({
     name: text, shortName: text, descriptor: text, phone, phoneDisplay: text,
     email: z.email(), city: text, region: z.string().length(2), street: text, postalCode: z.string().regex(/^\d{5}$/),
