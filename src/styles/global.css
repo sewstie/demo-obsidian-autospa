@@ -89,15 +89,16 @@ p { max-width: 68ch; }
 .hero-inner { padding-block: 150px 44px; }
 .hero-eyebrow { color: var(--color-accent); font-size: .95rem; display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
 .hero-eyebrow::before { content: ''; height: 8px; width: 8px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 14px 2px var(--color-primary); }
-.hero h1 { font-size: clamp(3.3rem, 14.6vw, 11.5rem); line-height: .84; letter-spacing: -.015em; white-space: pre-line; animation: rise 1s var(--ease) both; }
-.hero-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px 64px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgb(255 255 255 / .16); animation: rise 1s .25s var(--ease) both; }
+.hero h1 { font-size: clamp(3.3rem, 14.6vw, 11.5rem); line-height: .84; letter-spacing: -.015em; white-space: pre-line; animation: rise .4s var(--ease); }
+.hero-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px 64px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgb(255 255 255 / .16); animation: rise .4s var(--ease); }
 .hero-copy { max-width: 46ch; font-size: 1.06rem; color: var(--color-accent); line-height: 1.7; }
 .hero-buttons { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
 .hero-note { display: flex; align-items: center; gap: 8px; color: var(--color-muted); font-size: .875rem; margin-top: 14px; }
 .hero-note svg { color: var(--color-success); }
 .hero-caption { position: absolute; top: 28px; right: max(56px, calc((100% - 1320px) / 2)); text-align: right; font-size: .875rem; color: var(--color-accent); }
 .hero-caption span { display: block; margin-top: 2px; color: var(--color-muted); }
-@keyframes rise { from { opacity: 0; transform: translateY(28px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(-10% 0 -10% 0); } }
+/* Movement only: the headline is fully opaque from first paint. */
+@keyframes rise { from { transform: translateY(18px); } }
 @keyframes light-in { from { --x: -10%; --y: 80%; } }
 @keyframes light-drift { from { --x: 18%; --y: 30%; } to { --x: 82%; --y: 50%; } }
 @media (hover: none) { .hero { animation: light-drift 9s ease-in-out infinite alternate; } }

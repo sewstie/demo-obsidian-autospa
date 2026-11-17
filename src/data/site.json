@@ -13,7 +13,7 @@
   "nav": [ { "label": "Services", "href": "#services" }, { "label": "The difference", "href": "#difference" }, { "label": "Our work", "href": "#work" }, { "label": "Reviews", "href": "#reviews" } ],
   "hero": {
     "eyebrow": "For those who notice the details.", "heading": "Beyond clean.\nObsidian.",
-    "description": "Mirror-finish protection for high-end vehicles. A 30-second appointment request. A finish you’ll enjoy for years.",
+    "description": "Paint correction and ceramic protection for cars you care about. Request a time in 30 seconds.",
     "primaryCta": "Find your finish", "secondaryCta": "See the difference", "availability": "Now welcoming appointment requests",
     "image": { "src": "/images/hero.webp", "alt": "Glossy black performance sedan driving on an open road" },
     "imageCaption": "Precision in every reflection.", "note": "Your next great first impression starts here.",
