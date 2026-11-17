@@ -20,7 +20,7 @@
     "specialties": [ "Paint correction", "Ceramic protection", "Interior restoration", "Precision detailing" ]
   },
   "intro": { "label": "A higher standard of care", "heading": "You don't drive ordinary.\nDon't settle for an ordinary finish.", "description": "From your daily driver to your weekend obsession, we treat every surface with the same intention. No rushed jobs. No shortcuts. Just considered care, down to the last reflection.", "link": "Explore our services" },
-  "pricing": { "label": "The right treatment", "heading": "Your vehicle. Your finish.", "description": "Choose your vehicle size. Find your level of care. We’ll take it from here.", "note": "Starting estimates for vehicles in standard condition. Final pricing follows an in-person inspection, before any work begins. Tax may apply.", "vehicleLabel": "What do you drive?", "cta": "Choose this treatment" },
+  "pricing": { "label": "The right treatment", "heading": "Your vehicle. Your finish.", "description": "Choose your vehicle size. Find your level of care. We’ll take it from here.", "note": "Starting estimates for vehicles in standard condition. Final pricing follows an in-person inspection, before any work begins. Tax may apply.", "vehicleLabel": "What do you drive?", "coverageLabel": "Included with every package:", "cta": "Choose this treatment" },
   "vehicles": [
     { "id": "coupe-sedan", "name": "Coupe / Sedan", "description": "2–4 doors", "coverage": "Complete coupe or sedan cabin care", "extraHours": 0 },
     { "id": "midsize-suv", "name": "Mid-size SUV", "description": "Crossovers & SUVs", "coverage": "SUV cabin & rear cargo-area care", "extraHours": 1 },

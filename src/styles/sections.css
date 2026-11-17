@@ -14,7 +14,10 @@
 .pricing-heading { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px 90px; align-items: end; }
 .pricing-heading .section-label { grid-column: 1 / -1; margin-bottom: 0; }
 .pricing-heading .section-description { margin-top: 0; }
-.vehicle-fieldset { border: 0; padding: 0; margin: 56px 0 28px; max-width: 760px; }
+.vehicle-fieldset { border: 0; padding: 0; margin: 56px 0 16px; max-width: 760px; }
+.vehicle-coverage { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 28px; color: var(--color-muted); font-size: .95rem; }
+.vehicle-coverage svg { color: var(--color-primary); }
+.vehicle-coverage strong { color: var(--color-foreground); animation: price-in .4s var(--ease); }
 .vehicle-fieldset legend { font-size: .9rem; color: var(--color-muted); margin-bottom: 12px; padding: 0; }
 .vehicle-options { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); padding: 5px; border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-background); }
 .vehicle-options::before { content: ''; position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc((100% - 10px) / var(--n)); border-radius: 2px; background: var(--color-foreground); transform: translateX(calc(var(--i) * 100%)); transition: transform .45s var(--ease); }

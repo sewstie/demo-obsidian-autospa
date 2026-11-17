@@ -22,7 +22,7 @@ export const siteSchema = z.object({
     image, imageCaption: text, availability: text, note: text, specialties: z.array(text).min(1).max(8),
   }),
   intro: z.object({ label: text, heading: text, description: text, link: text }),
-  pricing: z.object({ label: text, heading: text, description: text, note: text, vehicleLabel: text, cta: text }),
+  pricing: z.object({ label: text, heading: text, description: text, note: text, vehicleLabel: text, coverageLabel: text, cta: text }),
   vehicles: z.array(z.object({ id, name: text, description: text, coverage: text, extraHours: z.number().min(0).max(48) })).min(1).max(5),
   packages: z.array(z.object({
     id, name: text, subtitle: text, prices: z.record(id, z.number().int().min(1).max(50000)), // one explicit price per vehicle size

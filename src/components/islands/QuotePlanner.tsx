@@ -1,5 +1,5 @@
 import { useRef, useState, type CSSProperties } from 'react';
-import { CarFront, Truck, X } from 'lucide-react';
+import { CarFront, Check, Truck, X } from 'lucide-react';
 import type { Site, Package } from '../../schemas/site';
 import PackageCard from './PackageCard';
 import BookingForm from './BookingForm';
@@ -29,6 +29,7 @@ export default function QuotePlanner({ site }: Props) {
             </label>;
           })}</div>
         </fieldset>
+        <p className="vehicle-coverage" aria-live="polite"><Check size={16} aria-hidden="true" />{site.pricing.coverageLabel} <strong key={vehicle.id}>{vehicle.coverage}</strong></p>
         <div className="package-grid" aria-live="polite" aria-atomic="true">
           {site.packages.map(treatment => <PackageCard key={treatment.id} treatment={treatment} vehicle={vehicle} cta={site.pricing.cta} onChoose={() => choose(treatment)} />)}
         </div>
