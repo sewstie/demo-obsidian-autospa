@@ -85,68 +85,29 @@ test('storage fails closed in production when GitHub is unconfigured', async () 
   }
 });
 
-test('buildLeadPayload rejects demo=true site', () => {
-  const demoSite = { ...baseSite, demo: true };
-  const lead = {
-    name: 'Jane Doe',
-    phone: '+15125550199',
-    email: 'jane@example.com',
-    vehicle: '2024 Porsche 911',
-    vehicleId: 'coupe-sedan',
-    packageId: 'ceramic',
-    slotId: 'weekday-am',
-    consent: true,
-  };
-  assert.throws(() => buildLeadPayload(lead, demoSite), (err: unknown) => {
+const lead = {
+  vehicleId: 'fullsize-truck', packageId: 'correction', addOnIds: ['engine-bay'], vehicle: '2022 Ford F-150', conditionId: 'swirls',
+  dropOffDate: '2030-01-07', timeWindowId: 'morning', notes: '', name: 'Alex Johnson', contact: 'alex@example.com',
+};
+
+test('buildLeadPayload rejects a demo-mode site', () => {
+  assert.throws(() => buildLeadPayload(lead, { ...baseSite, demoMode: true }), (err: unknown) => {
     return err instanceof HttpError && err.status === 400 && err.message.includes('demo mode');
   });
 });
 
-test('buildLeadPayload rejects honeypot website field and inactive slot', () => {
-  const activeSite = {
-    ...baseSite,
-    demo: false,
-    booking: {
-      ...baseSite.booking,
-      slots: baseSite.booking.slots.map(s => s.id === 'weekday-am' ? { ...s, active: false } : s),
-    },
-  };
-  const botLead = {
-    name: 'Bot Spammer',
-    phone: '+15125550199',
-    email: 'bot@example.com',
-    vehicle: '2020 Honda Civic',
-    vehicleId: 'coupe-sedan',
-    packageId: 'express',
-    slotId: 'saturday',
-    consent: true,
-    website: 'http://spam.example',
-  };
-  assert.throws(() => buildLeadPayload(botLead, activeSite), (err: unknown) => {
+test('buildLeadPayload rejects the honeypot website field', () => {
+  assert.throws(() => buildLeadPayload({ ...lead, website: 'http://spam.example' }, { ...baseSite, demoMode: false }), (err: unknown) => {
     return err instanceof HttpError && err.status === 400;
-  });
-
-  const inactiveSlotLead = { ...botLead, website: '' };
-  inactiveSlotLead.slotId = 'weekday-am';
-  assert.throws(() => buildLeadPayload(inactiveSlotLead, activeSite), (err: unknown) => {
-    return err instanceof HttpError && err.status === 400 && err.message.includes('inactive');
   });
 });
 
-test('buildLeadPayload computes authoritative quote using imported quote formula', () => {
-  const liveSite = { ...baseSite, demo: false };
-  const lead = {
-    name: 'Alex Johnson',
-    phone: '+15125550199',
-    email: 'alex@example.com',
-    vehicle: '2022 Ford F-150',
-    vehicleId: 'fullsize-truck',
-    packageId: 'correction',
-    slotId: 'saturday',
-    consent: true,
-  };
+test('buildLeadPayload computes the estimate from site data, add-ons included', () => {
+  const liveSite = { ...baseSite, demoMode: false };
   const payload = buildLeadPayload(lead, liveSite);
-  assert.equal(payload.quote.price, 895);
-  assert.equal(payload.quote.hours, 10);
+  assert.equal(payload.estimate, 895 + 75);
   assert.equal(payload.packageName, 'The Revival');
+  assert.equal(payload.timeWindow, 'Morning');
+  assert.equal('website' in payload, false);
+  assert.equal(buildLeadPayload({ ...lead, packageId: 'recommend' }, liveSite).estimate, null);
 });

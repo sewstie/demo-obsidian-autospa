@@ -1,24 +1,78 @@
-.booking-dialog { padding: 40px; width: min(580px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); overflow-y: auto; margin: auto; color: var(--color-foreground); background: var(--color-background); border: 1px solid var(--color-border); border-radius: 4px; }
+.booking-dialog { padding: 40px; width: min(620px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow-y: auto; margin: auto; color: var(--color-foreground); background: var(--color-background); border: 1px solid var(--color-border); border-radius: 4px; }
 .booking-dialog::backdrop { background: rgb(0 0 0 / .75); backdrop-filter: blur(5px); }
-.booking-dialog h2 { font-size: 2.6rem; padding-right: 25px; }
-.dialog-close { display: grid; place-items: center; min-width: 44px; min-height: 44px; position: absolute; top: 12px; right: 12px; border-radius: 5px; color: var(--color-muted); background: transparent; border: 0; }
+.booking-dialog h2 { font-size: 2.6rem; padding-right: 36px; }
+.dialog-close { display: grid; place-items: center; min-width: 44px; min-height: 44px; position: absolute; top: 12px; right: 12px; border-radius: 2px; color: var(--color-muted); background: transparent; border: 0; }
 .dialog-close:hover { color: var(--color-foreground); background: var(--color-secondary); }
-.booking-form { margin-top: 24px; display: grid; gap: 18px; }
-.booking-summary { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 20px; background: var(--color-secondary); border: 1px solid var(--color-border); border-radius: 5px; }
-.booking-summary strong { font-size: 1rem; }.booking-summary span, .booking-summary small { display: block; color: var(--color-muted); font-size: .875rem; margin-top: 3px; font-weight: 400; }.booking-summary > strong { text-align: right; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.field { display: grid; gap: 7px; font-size: .875rem; color: var(--color-accent); }
-.field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 11px 13px; border: 1px solid var(--color-border); border-radius: 5px; background: var(--color-secondary); color: var(--color-foreground); font-size: 1rem; }
-.field input::placeholder { color: var(--color-muted); font-size: .875rem; }
-.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--color-error); }
-.field-error { color: var(--color-error); font-size: .875rem; }.field-error:empty { display: none; }
-.consent-field { display: flex; gap: 10px; align-items: center; min-height: 44px; font-size: .875rem; color: var(--color-muted); cursor: pointer; }
-.consent-field input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--color-primary); }
-.form-notice { border: 1px solid var(--color-border); padding: 12px; border-radius: 4px; color: var(--color-accent); font-size: .875rem; background: var(--color-secondary); }
-.form-footnote { color: var(--color-muted); font-size: .875rem; text-align: center; }
-.booking-success { display: grid; gap: 24px; padding-block: 30px; font-size: .9rem; }.booking-success svg { color: var(--color-success); }
+.booking-form { margin-top: 22px; display: grid; gap: 20px; min-width: 0; }
+/* Step flow, ported from the Elm Park catering inquiry. */
+.steps { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none; color: var(--color-muted); font-size: .875rem; font-weight: 600; }
+.steps li { display: flex; align-items: center; gap: 8px; }
+.steps span { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--color-border); border-radius: 50%; font-size: .875rem; }
+.steps [aria-current] { color: var(--color-foreground); font-weight: 700; }
+.steps [aria-current] span { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-foreground); }
+.step-title { font-family: var(--font-display); font-size: 2rem; line-height: 1; text-transform: uppercase; }
+.box-options, .segmented { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.box-options legend, .segmented legend, .field { font-size: .9rem; font-weight: 600; color: var(--color-accent); }
+.box-options legend, .segmented legend { margin-bottom: 8px; padding: 0; }
+.box-options legend small { font-weight: 400; color: var(--color-muted); }
+.box-option { display: flex; align-items: flex-start; gap: 12px; min-height: 48px; padding: 13px 16px; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-secondary); cursor: pointer; font-size: 1rem; line-height: 1.4; }
+.box-option:has(:checked) { border-color: var(--color-primary); box-shadow: inset 0 0 0 1px var(--color-primary); }
+.box-option:has(:focus-visible) { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.box-option input { width: 20px; height: 20px; margin: 1px 0 0; flex-shrink: 0; accent-color: var(--color-primary); }
+.box-option small { display: block; color: var(--color-muted); font-size: .875rem; font-weight: 400; }
+.box-option > strong { margin-left: auto; text-align: right; white-space: nowrap; }
+.segmented { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+.segmented label { position: relative; cursor: pointer; }
+.segmented input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.segmented label span { display: grid; place-items: center; height: 100%; min-height: 50px; padding: 6px 8px; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-secondary); font-size: .95rem; font-weight: 700; line-height: 1.25; text-align: center; }
+.segmented input:checked + span { background: var(--color-foreground); border-color: var(--color-foreground); color: var(--color-background); }
+.segmented input:focus-visible + span { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.segmented .field-error { grid-column: 1 / -1; grid-row: 2; }
+.booking-estimate { position: sticky; bottom: 0; z-index: 5; max-width: none; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: var(--color-foreground); color: var(--color-background); border-radius: 2px; font-size: .95rem; font-weight: 600; line-height: 1.35; box-shadow: 0 0 0 8px var(--color-background); }
+.booking-estimate strong { flex-shrink: 0; text-align: right; font-family: var(--font-display); font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.booking-estimate small { display: block; font-family: var(--font-sans); font-size: .875rem; font-weight: 400; line-height: 1.4; }
+.step-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.step-actions .button { flex: 1 1 180px; }
+.review-group { padding: 14px 18px; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-secondary); }
+.review-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.review-head h4 { margin: 0; font-size: 1rem; font-weight: 700; }
+.link-button { min-width: 44px; min-height: 44px; padding: 0 6px; border: 0; background: transparent; color: var(--color-primary); font-size: .95rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.review-rows { margin: 0; }
+.review-rows div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 12px; padding-block: 7px; border-top: 1px dashed var(--color-border); font-size: .95rem; }
+.review-rows dt { color: var(--color-muted); }.review-rows dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.demo-tag { justify-self: start; padding: 4px 12px; border: 1px dashed var(--color-primary); border-radius: 999px; color: var(--color-primary); font-size: .875rem; font-weight: 700; }
+.email-preview { margin: 0; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-secondary); overflow: hidden; }
+.email-preview figcaption { padding: 8px 14px; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: .875rem; font-weight: 700; }
+.email-preview pre { margin: 0; padding: 14px; font-size: .875rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.form-success > svg { color: var(--color-success); }.form-success .booking-estimate { position: static; box-shadow: none; }
+.field { display: grid; gap: 7px; align-content: start; min-width: 0; }
+.field small { font-weight: 400; color: var(--color-muted); }
+.field textarea { resize: vertical; }
+.field input, .field select, .field textarea, .field .date-button { width: 100%; min-height: 50px; padding: 11px 13px; border: 1px solid var(--color-border); border-radius: 2px; background-color: var(--color-secondary); color: var(--color-foreground); font-size: 1rem; font-weight: 400; }
+.field input::placeholder, .field textarea::placeholder { color: var(--color-muted); }
+.field [aria-invalid="true"] { border-color: var(--color-error); }
+.field-hint { color: var(--color-muted); font-size: .875rem; font-weight: 400; }
+.field-error { color: var(--color-error); font-size: .875rem; font-weight: 400; }.field-error:empty { display: none; }
+.form-footnote { color: var(--color-muted); font-size: .875rem; text-align: center; margin-inline: auto; }
 .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* The calendar is our own popover; it sits under its button where anchor positioning exists and centers on screen elsewhere. */
+.field .date-button { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left; anchor-name: --date-button; }
+.date-button[data-empty] { color: var(--color-muted); }
+.date-button svg { flex-shrink: 0; color: var(--color-muted); }
+.calendar { width: min(334px, calc(100vw - 16px)); padding: 12px; border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-background); color: var(--color-foreground); box-shadow: 0 16px 40px rgb(0 0 0 / .6); }
+.calendar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.calendar-grid span { padding-block: 6px; text-align: center; color: var(--color-muted); font-size: .875rem; font-weight: 700; }
+.calendar button { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 2px; background: transparent; color: inherit; font-size: .95rem; }
+.calendar-grid button { min-width: 0; }
+.calendar button:hover { background: var(--color-secondary); }
+.calendar button[aria-pressed="true"] { background: var(--color-primary); color: var(--color-primary-foreground); font-weight: 700; }
+.calendar button[aria-disabled="true"] { background: transparent; opacity: .3; cursor: not-allowed; }
+@supports (top: anchor(bottom)) {
+  .calendar { position-anchor: --date-button; inset: auto; top: calc(anchor(bottom) + 6px); left: anchor(left); margin: 0; position-try-fallbacks: flip-block; }
+  @media (max-width: 600px) { .calendar { left: 0; right: 0; margin-inline: auto; } }
+}
 .admin-main { padding-block: 60px; max-width: 960px; }
 .admin-main h1 { font-size: 4rem; margin-block: 25px; }.admin-main h2 { font-size: 2.3rem; }
 .admin-main form, .admin-main section { margin-block: 24px; }.admin-main textarea { font-family: monospace; min-height: 400px; }
-@media (max-width: 600px) { .booking-dialog { padding: 30px 20px; }.form-grid { grid-template-columns: 1fr; }.booking-dialog h2 { font-size: 2.3rem; } }
+@media (max-width: 600px) { .booking-dialog { padding: 28px 16px 16px; }.booking-dialog h2 { font-size: 2.2rem; }.review-rows div { grid-template-columns: 1fr; gap: 0; }.segmented label span { font-size: .875rem; } }

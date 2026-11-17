@@ -1,19 +1,19 @@
 import { z } from 'zod';
+import { bookingSchema } from './booking.ts';
+import { id, text } from './primitives.ts';
 
-const text = z.string().trim().min(1).max(1000);
-const id = z.string().regex(/^[a-z][a-z0-9-]{0,39}$/);
 const image = z.object({ src: z.string().regex(/^\/images\/[a-z0-9-]+\.(webp|jpg|svg)$/), alt: text });
 const link = z.object({ label: text, href: z.string().regex(/^#[a-z-]+$/) });
 const phone = z.string().regex(/^\+1\d{10}$/);
 export const siteSchema = z.object({
-  demo: z.boolean(),
+  demoMode: z.boolean(),
   demoBanner: z.boolean(),
   banner: z.object({ text, shortText: text, href: z.url().refine(value => value.startsWith('https://')), dismissLabel: text }),
   business: z.object({
     name: text, shortName: text, descriptor: text, phone, phoneDisplay: text,
     email: z.email(), city: text, region: z.string().length(2), street: text, postalCode: z.string().regex(/^\d{5}$/),
     hours: text, hoursSchema: z.string().regex(/^[A-Za-z, -]+ \d{2}:\d{2}-\d{2}:\d{2}$/),
-    serviceArea: text,
+    serviceArea: text, timeZone: text,
   }),
   seo: z.object({ title: text, description: text }),
   nav: z.array(link).min(1).max(6),
@@ -33,23 +33,16 @@ export const siteSchema = z.object({
   gallery: z.object({ label: text, heading: text, description: text, items: z.array(z.object({ image, title: text, service: text })).min(1).max(8) }),
   reviews: z.object({ label: text, heading: text, disclaimer: text, items: z.array(z.object({ quote: text, name: text, vehicle: text, stars: z.number().int().min(1).max(5) })).max(8) }),
   faq: z.object({ heading: text, items: z.array(z.object({ question: text, answer: text })).max(10) }),
-  booking: z.object({
-    label: text, heading: text, description: text, cta: text, privacy: text, success: text, error: text,
-    slots: z.array(z.object({ id, label: text, active: z.boolean() })).min(1).max(20),
-  }),
+  booking: bookingSchema,
   footer: z.object({ heading: text, description: text, copyright: text, demoNotice: text }),
 }).superRefine((site, ctx) => {
-  for (const key of ['vehicles', 'packages'] as const) {
-    if (new Set(site[key].map(item => item.id)).size !== site[key].length) {
-      ctx.addIssue({ code: 'custom', path: [key], message: 'IDs must be unique.' });
-    }
+  const lists = { vehicles: site.vehicles, packages: site.packages, addOns: site.booking.addOns, conditions: site.booking.conditions, timeWindows: site.booking.timeWindows };
+  for (const [key, items] of Object.entries(lists)) {
+    if (new Set(items.map(item => item.id)).size !== items.length) ctx.addIssue({ code: 'custom', path: [key], message: 'IDs must be unique.' });
   }
   site.packages.forEach((item, index) => site.vehicles.forEach(vehicle => {
     if (!(vehicle.id in item.prices)) ctx.addIssue({ code: 'custom', path: ['packages', index, 'prices'], message: `Missing price for ${vehicle.id}.` });
   }));
-  if (new Set(site.booking.slots.map(slot => slot.id)).size !== site.booking.slots.length) {
-    ctx.addIssue({ code: 'custom', path: ['booking', 'slots'], message: 'Slot IDs must be unique.' });
-  }
 });
 export type Site = z.infer<typeof siteSchema>;
 export type Package = Site['packages'][number];

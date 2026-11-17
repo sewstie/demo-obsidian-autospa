@@ -1,50 +1,30 @@
-import { quote } from '../pricing.ts';
+import { bookingSummary } from '../booking.ts';
 import { HttpError } from './http.ts';
 import type { Lead } from '../../schemas/lead.ts';
 import type { Site } from '../../schemas/site.ts';
 
-const MAX_PII = 254;
-
-export interface LeadPayload {
-  name: string; phone: string; email: string; vehicle: string;
-  vehicleId: string; packageId: string; slotId: string;
-  slotLabel: string; packageName: string; vehicleName: string;
-  quote: { price: number; hours: number };
+export interface LeadPayload extends Omit<Lead, 'website'> {
+  packageName: string; vehicleName: string; timeWindow: string;
+  estimate: number | null; // null when the visitor asked for a recommendation
   site: { business: string; phone: string };
   submittedAt: string;
 }
 
+// `lead` must already be parsed with leadSchema(site, ...), which checks the size, package, add-ons, date and window.
 export function buildLeadPayload(lead: Lead, site: Site): LeadPayload {
-  if (site.demo) {
-    throw new HttpError(400, 'Appointment requests are disabled while the site is in demo mode.');
+  if (site.demoMode) {
+    throw new HttpError(400, 'Appointment requests are not delivered while the site is in demo mode.');
   }
-  if (lead.website && lead.website.length > 0) {
-    throw new HttpError(400, 'Invalid request submission.');
-  }
-  const pkg = site.packages.find(item => item.id === lead.packageId);
-  const vehicle = site.vehicles.find(item => item.id === lead.vehicleId);
-  const slot = site.booking.slots.find(item => item.id === lead.slotId);
-
-  if (!pkg) throw new HttpError(400, 'The selected service package is no longer available.');
-  if (!vehicle) throw new HttpError(400, 'The selected vehicle category is no longer available.');
-  if (!slot || !slot.active) throw new HttpError(400, 'The selected time preference is currently inactive.');
-
+  const { website, ...fields } = lead;
+  if (website) throw new HttpError(400, 'Invalid request submission.');
+  const summary = bookingSummary(lead, site);
   return {
-    name: lead.name.slice(0, MAX_PII),
-    phone: lead.phone.slice(0, MAX_PII),
-    email: lead.email.slice(0, MAX_PII),
-    vehicle: lead.vehicle.slice(0, MAX_PII),
-    vehicleId: vehicle.id,
-    packageId: pkg.id,
-    slotId: slot.id,
-    slotLabel: slot.label,
-    packageName: pkg.name,
-    vehicleName: vehicle.name,
-    quote: quote(pkg, vehicle),
-    site: {
-      business: site.business.name,
-      phone: site.business.phoneDisplay,
-    },
+    ...fields,
+    packageName: summary.packageName,
+    vehicleName: summary.vehicle.name,
+    timeWindow: summary.window?.label ?? '',
+    estimate: summary.total,
+    site: { business: site.business.name, phone: site.business.phoneDisplay },
     submittedAt: new Date().toISOString(),
   };
 }

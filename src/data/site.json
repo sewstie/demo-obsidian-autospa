@@ -1,5 +1,5 @@
 {
-  "demo": true,
+  "demoMode": true,
   "demoBanner": true,
   "banner": { "text": "Demo site by Vladislav Hushcha — want one for your business? →", "shortText": "Demo by Vladislav Hushcha · Get yours →", "href": "https://web.vladislavhushcha.me", "dismissLabel": "Dismiss demo notice" },
   "business": {
@@ -7,7 +7,7 @@
     "phone": "+15085550148", "phoneDisplay": "(508) 555-0148", "email": "hello@obsidian.example",
     "city": "Worcester", "region": "MA", "street": "100 Example Drive", "postalCode": "01605",
     "hours": "Monday–Saturday, 8 am–6 pm", "hoursSchema": "Mo-Sa 08:00-18:00",
-    "serviceArea": "Worcester County, MA"
+    "serviceArea": "Worcester County, MA", "timeZone": "America/New_York"
   },
   "seo": { "title": "Obsidian Auto Spa | Paint Correction & Ceramic Coating in Worcester, MA", "description": "A finish worth protecting. Explore vehicle-specific detailing, paint correction and 5-year ceramic coating packages at Obsidian Auto Spa in Worcester, Massachusetts." },
   "nav": [ { "label": "Services", "href": "#services" }, { "label": "The difference", "href": "#difference" }, { "label": "Our work", "href": "#work" }, { "label": "Reviews", "href": "#reviews" } ],
@@ -62,9 +62,26 @@
   ] },
   "booking": {
     "label": "Make a great impression", "heading": "Your next chapter\nstarts with a better finish.", "description": "Tell us a little about your vehicle. We’ll get back to you to confirm the details. No pressure. No payment upfront.",
-    "cta": "Request my appointment", "privacy": "I agree to be contacted about this appointment request. My details will not be used for marketing.",
-    "success": "Your request has been sent. We’ll contact you to confirm availability and pricing. Your appointment is not confirmed yet.", "error": "Your request could not be sent. Please try again or call us directly.",
-    "slots": [ { "id": "weekday-am", "label": "Weekday morning", "active": true }, { "id": "weekday-pm", "label": "Weekday afternoon", "active": true }, { "id": "saturday", "label": "Saturday", "active": true } ]
+    "dialogTitle": "Request your appointment", "recommend": "Not sure yet — recommend one", "recommendNote": "We’ll suggest a package after a quick look at your paint.",
+    "estimateLabel": "Starting estimate", "estimatePending": "Quoted after inspection",
+    "privacy": "We only use your details to reply to this request. No marketing, ever.", "error": "Your request could not be sent. Please try again or call us directly.",
+    "leadDays": 1, "closedWeekdays": [0],
+    "addOns": [ { "id": "engine-bay", "name": "Engine bay detail", "price": 75 }, { "id": "headlights", "name": "Headlight restoration", "price": 95 }, { "id": "pet-hair", "name": "Pet hair removal", "price": 60 } ],
+    "conditions": [ { "id": "good", "label": "Good" }, { "id": "swirls", "label": "Swirls & scratches" }, { "id": "heavy", "label": "Heavy" } ],
+    "timeWindows": [ { "id": "morning", "label": "Morning", "open": "08:00", "close": "12:00" }, { "id": "afternoon", "label": "Afternoon", "open": "12:00", "close": "18:00" } ],
+    "steps": { "vehicle": { "short": "Vehicle", "title": "Your vehicle" }, "when": { "short": "When", "title": "When" }, "details": { "short": "Details", "title": "Your details" }, "review": { "short": "Review", "title": "Review" } },
+    "fields": {
+      "size": "Vehicle size", "package": "Package", "addOns": "Add-ons", "vehicle": "Year, make and model", "vehiclePlaceholder": "2021 BMW M3", "condition": "Paint condition",
+      "date": "Drop-off date", "datePlaceholder": "Select a date", "previousMonth": "Previous month", "nextMonth": "Next month", "dateHint": "Monday to Saturday, from tomorrow.",
+      "time": "Time window", "notes": "Notes", "notesPlaceholder": "Anything we should know about the vehicle…", "optional": "optional",
+      "name": "Your name", "contact": "Email or phone", "contactHint": "One is enough. We’ll use it to confirm your appointment."
+    },
+    "actions": { "back": "Back", "next": "Continue", "edit": "Edit", "submit": "Request my appointment", "sending": "Sending request…", "calendar": "Add to calendar", "close": "Done" },
+    "success": {
+      "title": "Request sent.", "body": "We’ll contact you to confirm availability and pricing. Your appointment is not confirmed yet.", "demoTag": "Demo — nothing was sent",
+      "emailTitle": "What the owner receives", "emailSubject": "New appointment request", "emailName": "Name", "emailContact": "Contact", "emailVehicle": "Vehicle",
+      "emailPackage": "Package", "emailDate": "Date", "emailSubmitted": "Submitted", "calendarTitle": "Vehicle drop-off"
+    }
   },
-  "footer": { "heading": "Extraordinary care.\nNothing less.", "description": "Precision auto detailing & ceramic protection.", "copyright": "Obsidian Auto Spa. All rights reserved.", "demoNotice": "Concept website. Sample pricing, location and reviews. Appointment requests are disabled until the studio is configured." }
+  "footer": { "heading": "Extraordinary care.\nNothing less.", "description": "Precision auto detailing & ceramic protection.", "copyright": "Obsidian Auto Spa. All rights reserved.", "demoNotice": "Concept website. Sample pricing, location and reviews. Appointment requests are simulated and nothing is sent." }
 }

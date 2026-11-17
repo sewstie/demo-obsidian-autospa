@@ -7,8 +7,8 @@ const { site } = Astro.props;
 <section id="booking" data-light class="booking-section section-space" aria-labelledby="booking-title">
   <div class="section-shell booking-grid">
     <div><p class="section-label">{site.booking.label}</p><h2 id="booking-title" tabindex="-1" class="whitespace-pre-line">{site.booking.heading}</h2><p class="section-description">{site.booking.description}</p>
-      <div class="hero-buttons"><a href="#services" class="button button-primary">Choose your treatment<ArrowUpRight size={18} aria-hidden="true" /></a><a href={`tel:${site.business.phone}`} class="text-link"><Phone size={16} aria-hidden="true" />{site.business.phoneDisplay}</a></div>
+      <div class="hero-buttons"><a href="#services" data-book class="button button-primary">Choose your treatment<ArrowUpRight size={18} aria-hidden="true" /></a><a href={`tel:${site.business.phone}`} class="text-link"><Phone size={16} aria-hidden="true" />{site.business.phoneDisplay}</a></div>
     </div>
-    <div class="studio-info"><p class="section-label">Your vehicle is in good hands.</p><div><MapPin size={20} strokeWidth={1.5} aria-hidden="true" /><span>{site.business.serviceArea}</span></div><div><Clock3 size={20} strokeWidth={1.5} aria-hidden="true" /><span>{site.business.hours}</span></div><p>{site.hero.note}</p>{site.demo && <p class="demo-note">Demo studio · Contact details are placeholders.</p>}</div>
+    <div class="studio-info"><p class="section-label">Your vehicle is in good hands.</p><div><MapPin size={20} strokeWidth={1.5} aria-hidden="true" /><span>{site.business.serviceArea}</span></div><div><Clock3 size={20} strokeWidth={1.5} aria-hidden="true" /><span>{site.business.hours}</span></div><p>{site.hero.note}</p>{site.demoMode && <p class="demo-note">Demo studio · Contact details are placeholders.</p>}</div>
   </div>
 </section>

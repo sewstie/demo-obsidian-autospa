@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { siteSchema } from '../src/schemas/site.ts';
 import { leadSchema } from '../src/schemas/lead.ts';
 import { money, quote } from '../src/lib/pricing.ts';
+import { RECOMMEND, calendarFile, minDropOffDate } from '../src/lib/booking.ts';
 
 const data = JSON.parse(readFileSync('src/data/site.json', 'utf8')) as unknown;
 const site = siteSchema.parse(data);
@@ -28,9 +29,21 @@ test('every package needs a price for every vehicle size', () => {
   assert.equal(siteSchema.safeParse({ ...site, packages: [{ ...site.packages[0], prices: {} }] }).success, false);
 });
 
-test('lead validation requires consent and a complete US phone number', () => {
-  const lead = { name: 'Test Owner', phone: '(512) 555-0100', email: 'test@example.com', vehicle: '2025 Test Sedan', vehicleId: site.vehicles[0].id, packageId: site.packages[0].id, slotId: site.booking.slots[0].id, consent: true, website: '' };
-  assert.equal(leadSchema.safeParse(lead).success, true);
-  assert.equal(leadSchema.safeParse({ ...lead, consent: false }).success, false);
-  assert.equal(leadSchema.safeParse({ ...lead, phone: '123' }).success, false);
+test('lead validation needs one contact method and an open drop-off day', () => {
+  const schema = leadSchema(site, '2030-01-01');
+  const lead = { vehicleId: site.vehicles[0].id, packageId: site.packages[0].id, addOnIds: [], vehicle: '2025 Test Sedan', conditionId: 'good', dropOffDate: '2030-01-07', timeWindowId: 'morning', notes: '', name: 'Test Owner', contact: '(508) 555-0100', website: '' };
+  assert.equal(schema.safeParse(lead).success, true);
+  assert.equal(schema.safeParse({ ...lead, contact: 'test@example.com', packageId: RECOMMEND }).success, true);
+  assert.equal(schema.safeParse({ ...lead, contact: '123' }).success, false);
+  assert.equal(schema.safeParse({ ...lead, dropOffDate: '2030-01-06' }).success, false); // a Sunday
+  assert.equal(schema.safeParse({ ...lead, dropOffDate: '2029-12-31' }).success, false); // before the minimum
+  assert.equal(schema.safeParse({ ...lead, addOnIds: ['nope'] }).success, false);
+});
+
+test('calendar file and earliest date follow the studio clock', () => {
+  assert.equal(minDropOffDate(1, 'America/New_York', new Date('2030-01-01T03:00:00Z')), '2030-01-01'); // still Dec 31 in Worcester
+  const lead = { vehicleId: site.vehicles[0].id, packageId: RECOMMEND, addOnIds: [], vehicle: '2025 Test Sedan', conditionId: 'good', dropOffDate: '2030-01-07', timeWindowId: 'afternoon', notes: '', name: 'Test Owner', contact: 'a@b.co' };
+  const file = calendarFile(lead, site, 'Studio', '1 Main St, Worcester');
+  assert.equal(file.includes('DTSTART:20300107T120000'), true);
+  assert.equal(file.includes('LOCATION:1 Main St\\, Worcester'), true);
 });

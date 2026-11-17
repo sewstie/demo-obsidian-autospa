@@ -42,30 +42,6 @@ export const AdminPackages: React.FC<AdminPackagesProps> = ({ site, disabled = f
         </div>
       </section>
 
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-accent">Active Booking Slots</h3>
-        <div className="space-y-2">
-          {site.booking.slots.map((slot, idx) => (
-            <label key={slot.id} className="flex items-center gap-3 p-3 min-h-[44px] border border-border rounded bg-secondary cursor-pointer">
-              <input
-                type="checkbox"
-                checked={slot.active}
-                onChange={e => {
-                  const active = e.target.checked;
-                  onUpdateSite(prev => {
-                    const slots = [...prev.booking.slots];
-                    slots[idx] = { ...slots[idx], active };
-                    return { ...prev, booking: { ...prev.booking, slots } };
-                  });
-                }}
-                className="w-5 h-5 accent-primary"
-              />
-              <span className="text-sm font-medium">{slot.label}</span>
-              <span className="text-xs text-muted ml-auto">ID: {slot.id}</span>
-            </label>
-          ))}
-        </div>
-      </section>
     </fieldset>
   );
 };
