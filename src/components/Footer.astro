@@ -1,0 +1,17 @@
+---
+import { Phone, ArrowUpRight } from 'lucide-react';
+import type { Site } from '../schemas/site';
+import Brand from './Brand.astro';
+import { asset } from '../lib/paths';
+interface Props { site: Site }
+const { site } = Astro.props;
+---
+<footer class="site-footer">
+  <div class="section-shell">
+    <div class="footer-top"><div><Brand business={site.business} /><p>{site.footer.description}</p></div><nav aria-label="Footer navigation">{site.nav.map(link => <a href={link.href}>{link.label}</a>)}</nav><a class="text-link" href={`mailto:${site.business.email}`}>Get in touch<ArrowUpRight size={16} aria-hidden="true" /></a></div>
+    <p class="footer-wordmark" data-light aria-hidden="true">{site.business.shortName}</p>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} {site.footer.copyright}</span><span>{site.business.city}, {site.business.region}</span>{import.meta.env.PUBLIC_STATIC_DEMO !== 'true' && <a href={asset('/admin')}>Studio admin</a>}</div>
+    {site.demo && <p class="footer-demo">{site.footer.demoNotice}</p>}
+  </div>
+</footer>
+<div class="mobile-contact"><a href={`tel:${site.business.phone}`} class="button button-secondary"><Phone size={17} aria-hidden="true" />Call the studio</a><a href="#services" class="button button-primary">Book your detail<ArrowUpRight size={17} aria-hidden="true" /></a></div>

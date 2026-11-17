@@ -1,0 +1,10 @@
+---
+import { X } from 'lucide-react';
+import type { Site } from '../schemas/site';
+interface Props { banner: Site['banner'] }
+const { banner } = Astro.props;
+---
+<aside class="demo-banner">
+  <a href={banner.href}>{banner.text}</a>
+  <button type="button" aria-label={banner.dismissLabel} onclick="this.parentElement.remove()"><X size={18} aria-hidden="true" /></button>
+</aside>

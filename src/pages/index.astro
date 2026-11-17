@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DemoBanner from '../components/DemoBanner.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import Intro from '../components/sections/Intro.astro';
+import QuotePlanner from '../components/islands/QuotePlanner';
+import Comparison from '../components/sections/Comparison.astro';
+import Gallery from '../components/sections/Gallery.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import Faq from '../components/sections/Faq.astro';
+import Booking from '../components/sections/Booking.astro';
+import Footer from '../components/Footer.astro';
+import data from '../data/site.json';
+import { siteSchema } from '../schemas/site';
+const site = siteSchema.parse(data);
+---
+<Layout site={site}>
+  {site.demoBanner && <DemoBanner banner={site.banner} />}
+  <Header site={site} />
+  <main id="main">
+    <Hero hero={site.hero} business={site.business} />
+    <Intro intro={site.intro} />
+    <QuotePlanner site={site} client:visible />
+    <Comparison comparison={site.comparison} />
+    <Gallery gallery={site.gallery} />
+    <Reviews reviews={site.reviews} />
+    <Faq faq={site.faq} />
+    <Booking site={site} />
+  </main>
+  <Footer site={site} />
+</Layout>

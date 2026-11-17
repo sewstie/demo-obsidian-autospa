@@ -1,0 +1,34 @@
+---
+import { MoveHorizontal, Sparkles, ShieldCheck } from 'lucide-react';
+import type { Site } from '../../schemas/site';
+import { asset } from '../../lib/paths';
+interface Props { comparison: Site['comparison'] }
+const { comparison } = Astro.props;
+---
+<section id="difference" class="section-shell section-space comparison-grid" aria-labelledby="comparison-title">
+  <div class="comparison-copy">
+    <p class="section-label">{comparison.label}</p>
+    <h2 id="comparison-title" class="whitespace-pre-line">{comparison.heading}</h2>
+    <p class="section-description">{comparison.description}</p>
+    <div class="comparison-facts">{comparison.facts.map((fact, index) => { const Icon = index === 0 ? Sparkles : ShieldCheck; return <div><Icon size={22} strokeWidth={1.5} aria-hidden="true" /><div><h3>{fact.title}</h3><p>{fact.description}</p></div></div>; })}</div>
+  </div>
+  <figure>
+    <div class="comparison-frame" style="--position: 50%">
+      <img src={asset(comparison.before.src)} alt={comparison.before.alt} width="1000" height="700" loading="lazy" />
+      <img class="comparison-after" src={asset(comparison.after.src)} alt={comparison.after.alt} width="1000" height="700" loading="lazy" />
+      <span class="comparison-tag before-tag">{comparison.beforeLabel}</span><span class="comparison-tag after-tag">{comparison.afterLabel}</span>
+      <div class="comparison-divider" aria-hidden="true"><span><MoveHorizontal size={22} /></span></div>
+      <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Reveal before and after finish" aria-valuetext="50% after finish revealed" />
+    </div>
+    <figcaption class="comparison-disclaimer">{comparison.disclaimer}</figcaption>
+  </figure>
+</section>
+<script>
+  document.querySelectorAll<HTMLInputElement>('.comparison-range').forEach(input => {
+    input.addEventListener('input', () => {
+      const frame = input.closest<HTMLElement>('.comparison-frame');
+      frame?.style.setProperty('--position', `${input.value}%`);
+      input.setAttribute('aria-valuetext', `${100 - Number(input.value)}% after finish revealed`);
+    });
+  });
+</script>

@@ -1,0 +1,24 @@
+.booking-dialog { padding: 40px; width: min(580px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); overflow-y: auto; margin: auto; color: var(--color-foreground); background: var(--color-background); border: 1px solid var(--color-border); border-radius: 4px; }
+.booking-dialog::backdrop { background: rgb(0 0 0 / .75); backdrop-filter: blur(5px); }
+.booking-dialog h2 { font-size: 2.6rem; padding-right: 25px; }
+.dialog-close { display: grid; place-items: center; min-width: 44px; min-height: 44px; position: absolute; top: 12px; right: 12px; border-radius: 5px; color: var(--color-muted); background: transparent; border: 0; }
+.dialog-close:hover { color: var(--color-foreground); background: var(--color-secondary); }
+.booking-form { margin-top: 24px; display: grid; gap: 18px; }
+.booking-summary { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 20px; background: var(--color-secondary); border: 1px solid var(--color-border); border-radius: 5px; }
+.booking-summary strong { font-size: 1rem; }.booking-summary span, .booking-summary small { display: block; color: var(--color-muted); font-size: .875rem; margin-top: 3px; font-weight: 400; }.booking-summary > strong { text-align: right; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: grid; gap: 7px; font-size: .875rem; color: var(--color-accent); }
+.field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 11px 13px; border: 1px solid var(--color-border); border-radius: 5px; background: var(--color-secondary); color: var(--color-foreground); font-size: 1rem; }
+.field input::placeholder { color: var(--color-muted); font-size: .875rem; }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--color-error); }
+.field-error { color: var(--color-error); font-size: .875rem; }.field-error:empty { display: none; }
+.consent-field { display: flex; gap: 10px; align-items: center; min-height: 44px; font-size: .875rem; color: var(--color-muted); cursor: pointer; }
+.consent-field input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--color-primary); }
+.form-notice { border: 1px solid var(--color-border); padding: 12px; border-radius: 4px; color: var(--color-accent); font-size: .875rem; background: var(--color-secondary); }
+.form-footnote { color: var(--color-muted); font-size: .875rem; text-align: center; }
+.booking-success { display: grid; gap: 24px; padding-block: 30px; font-size: .9rem; }.booking-success svg { color: var(--color-success); }
+.honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.admin-main { padding-block: 60px; max-width: 960px; }
+.admin-main h1 { font-size: 4rem; margin-block: 25px; }.admin-main h2 { font-size: 2.3rem; }
+.admin-main form, .admin-main section { margin-block: 24px; }.admin-main textarea { font-family: monospace; min-height: 400px; }
+@media (max-width: 600px) { .booking-dialog { padding: 30px 20px; }.form-grid { grid-template-columns: 1fr; }.booking-dialog h2 { font-size: 2.3rem; } }

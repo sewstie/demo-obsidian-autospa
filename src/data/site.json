@@ -1,0 +1,70 @@
+{
+  "demo": true,
+  "demoBanner": true,
+  "banner": { "text": "Demo site by Vladislav Hushcha — want one for your business? →", "href": "https://web.vladislavhushcha.me", "dismissLabel": "Dismiss banner" },
+  "business": {
+    "name": "Obsidian Auto Spa & Ceramic Coating", "shortName": "OBSIDIAN", "descriptor": "Auto spa & ceramic coating",
+    "phone": "+15085550148", "phoneDisplay": "(508) 555-0148", "email": "hello@obsidian.example",
+    "city": "Worcester", "region": "MA", "street": "100 Example Drive", "postalCode": "01605",
+    "hours": "Monday–Saturday, 8 am–6 pm", "hoursSchema": "Mo-Sa 08:00-18:00",
+    "url": "https://obsidian.example", "serviceArea": "Worcester County, MA"
+  },
+  "seo": { "title": "Obsidian Auto Spa | Paint Correction & Ceramic Coating in Worcester, MA", "description": "A finish worth protecting. Explore vehicle-specific detailing, paint correction and 5-year ceramic coating packages at Obsidian Auto Spa in Worcester, Massachusetts." },
+  "nav": [ { "label": "Services", "href": "#services" }, { "label": "The difference", "href": "#difference" }, { "label": "Our work", "href": "#work" }, { "label": "Reviews", "href": "#reviews" } ],
+  "hero": {
+    "eyebrow": "For those who notice the details.", "heading": "Beyond clean.\nObsidian.",
+    "description": "Mirror-finish protection for high-end vehicles. A 30-second appointment request. A finish you’ll enjoy for years.",
+    "primaryCta": "Find your finish", "secondaryCta": "See the difference", "availability": "Now welcoming appointment requests",
+    "image": { "src": "/images/hero.webp", "alt": "Glossy black performance sedan driving on an open road" },
+    "imageCaption": "Precision in every reflection.", "note": "Your next great first impression starts here.",
+    "specialties": [ "Paint correction", "Ceramic protection", "Interior restoration", "Precision detailing" ]
+  },
+  "intro": { "label": "A higher standard of care", "heading": "You don't drive ordinary.\nDon't settle for an ordinary finish.", "description": "From your daily driver to your weekend obsession, we treat every surface with the same intention. No rushed jobs. No shortcuts. Just considered care, down to the last reflection.", "link": "Explore our services" },
+  "pricing": { "label": "The right treatment", "heading": "Your vehicle. Your finish.", "description": "Choose your vehicle size. Find your level of care. We’ll take it from here.", "note": "Starting estimates for vehicles in standard condition. Final pricing follows an in-person inspection, before any work begins. Tax may apply.", "vehicleLabel": "What do you drive?", "cta": "Choose this treatment" },
+  "vehicles": [
+    { "id": "coupe-sedan", "name": "Coupe / Sedan", "description": "2–4 doors", "coverage": "Complete coupe or sedan cabin care", "multiplier": 1, "extraHours": 0 },
+    { "id": "midsize-suv", "name": "Mid-size SUV", "description": "Crossovers & SUVs", "coverage": "SUV cabin & rear cargo-area care", "multiplier": 1.2, "extraHours": 1 },
+    { "id": "fullsize-truck", "name": "Full-size / Truck", "description": "Large SUVs & pickups", "coverage": "Third-row cabin care or truck bed rinse", "multiplier": 1.4, "extraHours": 2 }
+  ],
+  "packages": [
+    { "id": "express", "name": "The Essential", "subtitle": "Express detail", "price": 175, "hours": 3, "duration": "Same-day refresh", "features": [ "pH-neutral hand wash & decontamination", "Wheels, tires & exterior glass", "Interior vacuum & surface care", "Finishing sealant for added gloss" ], "featured": false, "badge": "Everyday care" },
+    { "id": "correction", "name": "The Revival", "subtitle": "Full paint correction", "price": 650, "hours": 8, "duration": "A deeper transformation", "features": [ "Everything in The Essential", "Paint inspection & thickness assessment", "Multi-stage machine polishing", "Swirl & light defect reduction", "Protective finishing sealant" ], "featured": false, "badge": "Restore the reflection" },
+    { "id": "ceramic", "name": "The Obsidian", "subtitle": "5-year professional ceramic package", "price": 1495, "hours": 16, "duration": "Allow 2–3 days including cure", "features": [ "Everything in The Revival", "Professional-grade ceramic coating", "Paint, wheel faces & exterior glass", "Hydrophobic, high-gloss finish", "Aftercare guidance & maintenance plan" ], "featured": true, "badge": "The signature treatment" }
+  ],
+  "comparison": {
+    "label": "The difference is in the details", "heading": "Not just clean.\nCorrected.", "description": "Swirls hide your paint’s true depth. Precision correction restores clarity, and ceramic coating helps keep that just-detailed feeling for longer.",
+    "before": { "src": "/images/finish-before.webp", "alt": "Illustrative muted version of a black sedan’s paint finish" }, "after": { "src": "/images/finish-after.webp", "alt": "Illustrative clear, glossy finish on the same black sedan" },
+    "beforeLabel": "Before", "afterLabel": "After", "disclaimer": "Illustrative comparison, not a customer result. Drag to explore the finish.",
+    "facts": [ { "title": "Clarity, restored", "description": "A considered correction process, matched to your paint." }, { "title": "Protection, refined", "description": "A slick, hydrophobic barrier that makes routine care easier." } ]
+  },
+  "gallery": {
+    "label": "Built for the close-up", "heading": "Good from afar.\nBetter up close.", "description": "An appreciation for the details. Inspiration imagery shown; customer transformations coming soon.",
+    "items": [
+      { "image": { "src": "/images/work-detail.webp", "alt": "Close-up of a performance car’s polished body and wheel" }, "title": "Every curve, considered.", "service": "Paint correction" },
+      { "image": { "src": "/images/work-finish.webp", "alt": "Dark sports car with light reflecting across its paint" }, "title": "Depth you can see.", "service": "Ceramic protection" },
+      { "image": { "src": "/images/work-drive.webp", "alt": "Yellow performance coupe with light reflecting across its bodywork" }, "title": "Ready for the road.", "service": "Complete detailing" }
+    ]
+  },
+  "reviews": {
+    "label": "The owner’s perspective", "heading": "A finish worth talking about.", "disclaimer": "Sample testimonials for this demo. Not verified customer reviews.",
+    "items": [
+      { "quote": "The kind of attention to detail you hope for when you hand over your keys. The paint looks deeper, clearer, and better in every light.", "name": "Sample owner A", "vehicle": "Performance coupe · Ceramic package", "stars": 5 },
+      { "quote": "Clear pricing, thoughtful care, and a finish that makes the daily drive feel special again. Exactly what I was looking for.", "name": "Sample owner B", "vehicle": "Mid-size SUV · Paint correction", "stars": 5 },
+      { "quote": "From the first conversation to the final walkaround, every detail felt considered. Even the spots I didn’t think to check.", "name": "Sample owner C", "vehicle": "Sport sedan · Express detail", "stars": 5 }
+    ]
+  },
+  "faq": { "heading": "A few things worth knowing.", "items": [
+    { "question": "What does a 5-year ceramic coating actually mean?", "answer": "The package is designed around a coating with up to five years of protection when maintained as directed. Actual longevity depends on use, storage and care. We’ll explain the product, maintenance requirements and any written warranty before you book. Ceramic coating is not scratch-proof." },
+    { "question": "Will paint correction remove every scratch?", "answer": "No. Correction reduces swirls, haze and light defects. Deep scratches and compromised clear coat may need body-shop repair. We inspect paint thickness and agree on a safe result before work begins." },
+    { "question": "Is the price I see the final price?", "answer": "The calculator gives a starting estimate for your vehicle size. Heavy contamination, pet hair or significant paint defects can require extra time. You approve the final scope and price after inspection, before work starts." },
+    { "question": "Can I drop off my vehicle and collect it the same day?", "answer": "Express details are generally completed the same day. Paint correction takes longer, and the ceramic package needs 2–3 days including cure time. We confirm turnaround with your appointment." },
+    { "question": "Does submitting a request confirm my appointment?", "answer": "Not yet. Choose a time preference and we’ll contact you to confirm availability, your vehicle’s needs and the final quote. No payment is taken online." }
+  ] },
+  "booking": {
+    "label": "Make a great impression", "heading": "Your next chapter\nstarts with a better finish.", "description": "Tell us a little about your vehicle. We’ll get back to you to confirm the details. No pressure. No payment upfront.",
+    "cta": "Request my appointment", "privacy": "I agree to be contacted about this appointment request. My details will not be used for marketing.",
+    "success": "Your request has been sent. We’ll contact you to confirm availability and pricing. Your appointment is not confirmed yet.", "error": "Your request could not be sent. Please try again or call us directly.",
+    "slots": [ { "id": "weekday-am", "label": "Weekday morning", "active": true }, { "id": "weekday-pm", "label": "Weekday afternoon", "active": true }, { "id": "saturday", "label": "Saturday", "active": true } ]
+  },
+  "footer": { "heading": "Extraordinary care.\nNothing less.", "description": "Precision auto detailing & ceramic protection.", "copyright": "Obsidian Auto Spa. All rights reserved.", "demoNotice": "Concept website. Sample pricing, location and reviews. Appointment requests are disabled until the studio is configured." }
+}

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdminIsland from '../components/islands/Admin.tsx';
+import rawSite from '../data/site.json';
+import { siteSchema } from '../schemas/site.ts';
+
+const site = siteSchema.parse(rawSite);
+const isStaticDemo = import.meta.env.PUBLIC_STATIC_DEMO === 'true';
+---
+
+<Layout site={site} title="Studio admin" noindex={true}>
+  <main id="main">
+    {isStaticDemo ? (
+      <div class="section-shell section-space max-w-md mx-auto text-center space-y-4">
+        <h1 class="text-2xl font-bold">Admin Unavailable</h1>
+        <p class="text-sm text-muted">
+          The studio admin panel and backend API are disabled in static demo mode.
+        </p>
+      </div>
+    ) : (
+      <AdminIsland client:load initialSite={site} />
+    )}
+  </main>
+</Layout>

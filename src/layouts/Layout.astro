@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import type { Site } from '../schemas/site';
+import { asset } from '../lib/paths';
+interface Props { site: Site; title?: string; noindex?: boolean }
+const { site, title = site.seo.title, noindex = false } = Astro.props;
+const { business } = site;
+const canonical = new URL(Astro.url.pathname, business.url);
+const schema = {
+  '@context': 'https://schema.org', '@type': ['LocalBusiness', 'AutomotiveBusiness'],
+  name: business.name, description: site.seo.description, url: business.url,
+  telephone: business.phone, email: business.email, image: new URL(asset(site.hero.image.src), business.url).href,
+  address: { '@type': 'PostalAddress', streetAddress: business.street, addressLocality: business.city,
+    addressRegion: business.region, postalCode: business.postalCode, addressCountry: 'US' },
+  areaServed: business.serviceArea, openingHours: business.hoursSchema,
+  hasOfferCatalog: { '@type': 'OfferCatalog', name: site.pricing.heading, itemListElement: site.packages.map(item => ({
+    '@type': 'Offer', price: item.price, priceCurrency: 'USD', itemOffered: { '@type': 'Service', name: item.subtitle },
+  })) },
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="description" content={site.seo.description} />
+    {(noindex || site.demo) && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={site.seo.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(asset(site.hero.image.src), business.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+  </head>
+  <body class="bg-background text-foreground">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <slot />
+    <script>
+      // Inspection light: every [data-light] element under the pointer gets its position as --x / --y.
+      document.addEventListener('pointermove', event => {
+        if (!(event.target instanceof Element)) return;
+        for (let el = event.target.closest<HTMLElement>('[data-light]'); el; el = el.parentElement?.closest<HTMLElement>('[data-light]') ?? null) {
+          const box = el.getBoundingClientRect();
+          el.style.setProperty('--x', `${((event.clientX - box.left) / box.width) * 100}%`);
+          el.style.setProperty('--y', `${((event.clientY - box.top) / box.height) * 100}%`);
+        }
+      }, { passive: true });
+    </script>
+  </body>
+</html>

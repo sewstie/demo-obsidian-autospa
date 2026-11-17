@@ -1,0 +1,13 @@
+---
+import type { Site } from '../schemas/site';
+import { asset } from '../lib/paths';
+interface Props { business: Site['business'] }
+const { business } = Astro.props;
+---
+<a href={asset('/')} class="brand" aria-label={`${business.name} home`}>
+  <svg class="brand-symbol" viewBox="0 0 40 46" fill="none" aria-hidden="true">
+    <path d="m20 2 17 10v22L20 44 3 34V12Zm0 8-10 6v14l10 6 10-6V16Z" fill="currentColor" />
+    <path d="m20 2 17 10-7 4-10-6Z" class="fill-primary" />
+  </svg>
+  <span><span class="brand-name">{business.shortName}</span><span class="brand-caption">{business.descriptor}</span></span>
+</a>

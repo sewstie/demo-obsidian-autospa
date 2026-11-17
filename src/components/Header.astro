@@ -1,0 +1,31 @@
+---
+import { Menu, Phone, ArrowUpRight } from 'lucide-react';
+import type { Site } from '../schemas/site';
+import Brand from './Brand.astro';
+interface Props { site: Site }
+const { site } = Astro.props;
+---
+<header class="site-header">
+  <div class="section-shell header-inner">
+    <Brand business={site.business} />
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {site.nav.map(link => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <a class="phone-link" href={`tel:${site.business.phone}`}><Phone size={14} aria-hidden="true" />{site.business.phoneDisplay}</a>
+      <a class="button button-primary" href="#booking">Book your detail <ArrowUpRight size={16} aria-hidden="true" /></a>
+    </div>
+    <details class="mobile-menu">
+      <summary aria-label="Toggle navigation"><Menu size={25} aria-hidden="true" /></summary>
+      <nav aria-label="Mobile navigation">
+        {site.nav.map(link => <a href={link.href}>{link.label}</a>)}
+        <a href="#booking">Book your detail</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'));
+  });
+</script>

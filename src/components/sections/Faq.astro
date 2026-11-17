@@ -1,0 +1,10 @@
+---
+import { Plus } from 'lucide-react';
+import type { Site } from '../../schemas/site';
+interface Props { faq: Site['faq'] }
+const { faq } = Astro.props;
+---
+<section class="section-shell faq-section" aria-labelledby="faq-title">
+  <h2 id="faq-title">{faq.heading}</h2>
+  <div>{faq.items.map(item => <details class="faq-item" name="faq"><summary>{item.question}<Plus size={18} aria-hidden="true" /></summary><p>{item.answer}</p></details>)}</div>
+</section>

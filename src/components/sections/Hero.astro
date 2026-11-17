@@ -1,0 +1,30 @@
+---
+import { ArrowUpRight, ArrowDown, Check, Hexagon } from 'lucide-react';
+import type { Site } from '../../schemas/site';
+import { asset } from '../../lib/paths';
+interface Props { hero: Site['hero']; business: Site['business'] }
+const { hero, business } = Astro.props;
+---
+<section class="hero" data-light aria-labelledby="hero-title">
+  <img class="hero-image" src={asset(hero.image.src)} alt={hero.image.alt} width="1920" height="1280" loading="eager" fetchpriority="high" />
+  <div class="section-shell hero-inner">
+    <p class="hero-eyebrow">{hero.eyebrow}</p>
+    <h1 id="hero-title">{hero.heading}</h1>
+    <div class="hero-foot">
+      <p class="hero-copy">{hero.description}</p>
+      <div>
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#services">{hero.primaryCta}<ArrowUpRight size={18} aria-hidden="true" /></a>
+          <a class="text-link" href="#difference">{hero.secondaryCta}<ArrowDown size={15} aria-hidden="true" /></a>
+        </div>
+        <p class="hero-note"><Check size={15} aria-hidden="true" />{hero.availability}</p>
+      </div>
+    </div>
+  </div>
+  <p class="hero-caption">{hero.imageCaption}<span>{business.serviceArea}</span></p>
+</section>
+<div class="marquee">
+  <div class="marquee-track">
+    {[0, 1, 2, 3].map(copy => <ul aria-hidden={copy > 0}>{hero.specialties.map(item => <li>{item}<Hexagon size={16} fill="currentColor" aria-hidden="true" /></li>)}</ul>)}
+  </div>
+</div>
