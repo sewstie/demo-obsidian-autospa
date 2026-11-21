@@ -19,13 +19,14 @@ const { banner } = Astro.props;
   })(document.currentScript.previousElementSibling);
 </script>
 <style>
-  .demo-banner { display: flex; align-items: center; justify-content: center; gap: 4px; padding-left: 16px; background: #000; color: #fff; font: 700 14px/1.35 system-ui, sans-serif; }
-  .demo-banner a { display: flex; align-items: center; min-height: 44px; min-width: 0; color: #ff5733; text-decoration: underline; text-underline-offset: 3px; }
+  .demo-banner { display: flex; align-items: center; justify-content: center; gap: 4px; padding-left: 8px; background: #000; color: #fff; font: 700 14px/1.35 system-ui, sans-serif; }
+  /* The inline padding keeps the inset focus ring clear of the first and last letters. */
+  .demo-banner a { display: flex; align-items: center; min-height: 44px; min-width: 0; padding-inline: 8px; color: #ff5733; text-decoration: underline; text-underline-offset: 3px; }
   .demo-banner button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; }
-  .demo-banner :focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+  .demo-banner :focus-visible { outline: 2px solid #fff; outline-offset: -4px; box-shadow: none; }
   .short { display: none; }
   @media (max-width: 479px) {
-    .demo-banner { justify-content: space-between; padding-left: 12px; font-size: 13px; }
+    .demo-banner { justify-content: space-between; padding-left: 4px; font-size: 13px; }
     .long { display: none; }
     .short { display: inline; white-space: nowrap; }
   }
