@@ -67,12 +67,10 @@
 .calendar-grid button { min-width: 0; }
 .calendar button:hover { background: var(--color-secondary); }
 .calendar button[aria-pressed="true"] { background: var(--color-primary); color: var(--color-primary-foreground); font-weight: 700; }
-.calendar button[aria-disabled="true"] { background: transparent; opacity: .3; cursor: not-allowed; }
+/* Disabled days stay focusable for arrow keys, so dim the number rather than the button and its focus ring. */
+.calendar button[aria-disabled="true"] { background: transparent; color: color-mix(in srgb, var(--color-foreground) 30%, transparent); cursor: not-allowed; }
 @supports (top: anchor(bottom)) {
   .calendar { position-anchor: --date-button; inset: auto; top: calc(anchor(bottom) + 6px); left: anchor(left); margin: 0; position-try-fallbacks: flip-block; }
   @media (max-width: 600px) { .calendar { left: 0; right: 0; margin-inline: auto; } }
 }
-.admin-main { padding-block: 60px; max-width: 960px; }
-.admin-main h1 { font-size: 4rem; margin-block: 25px; }.admin-main h2 { font-size: 2.3rem; }
-.admin-main form, .admin-main section { margin-block: 24px; }.admin-main textarea { font-family: monospace; min-height: 400px; }
 @media (max-width: 600px) { .booking-dialog { padding: 28px 16px 16px; }.booking-dialog h2 { font-size: 2.2rem; }.review-rows div { grid-template-columns: 1fr; gap: 0; }.segmented label span { font-size: .875rem; } }

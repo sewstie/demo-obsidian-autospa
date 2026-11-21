@@ -1,92 +1,67 @@
 import React from 'react';
+import { z } from 'zod';
 import { siteSchema, type Site } from '../../schemas/site.ts';
 
 export interface AdminEditorProps {
   site: Site;
-  version: string;
-  isSaving: boolean;
   onUpdateSite: (updater: (prev: Site) => Site) => void;
-  onSave: () => void;
-  onReload: () => void;
-  onLogout: () => void;
+  jsonDirty: boolean;
+  onJsonDirty: (dirty: boolean) => void;
+  children: React.ReactNode;
 }
 
-export const AdminEditor: React.FC<AdminEditorProps> = ({
-  site, version, isSaving, onUpdateSite, onSave, onReload, onLogout,
-}) => {
+// Contact details, then the site-specific sections, then raw JSON for everything else. Same layout as the other demo admins.
+export const AdminEditor: React.FC<AdminEditorProps> = ({ site, onUpdateSite, jsonDirty, onJsonDirty, children }) => {
   const [jsonText, setJsonText] = React.useState('');
-  const [jsonError, setJsonError] = React.useState('');
+  const [jsonStatus, setJsonStatus] = React.useState<{ text: string; isError: boolean } | null>(null);
+  const setBusiness = (patch: Partial<Site['business']>) => onUpdateSite(prev => ({ ...prev, business: { ...prev.business, ...patch } }));
 
   const syncJsonFromState = () => {
     setJsonText(JSON.stringify(site, null, 2));
-    setJsonError('');
+    setJsonStatus(null);
+    onJsonDirty(false);
   };
 
   const applyJson = () => {
     try {
-      const parsed = JSON.parse(jsonText);
-      const validated = siteSchema.parse(parsed);
+      const validated = siteSchema.parse(JSON.parse(jsonText));
       onUpdateSite(() => validated);
-      setJsonError('');
+      onJsonDirty(false);
+      setJsonStatus({ text: 'Applied. Save changes to publish.', isError: false });
     } catch (err) {
-      setJsonError(err instanceof Error ? err.message : 'Invalid site JSON.');
+      setJsonStatus({ text: err instanceof z.ZodError ? z.prettifyError(err) : err instanceof Error ? err.message : 'Invalid JSON.', isError: true });
     }
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-4">
-        <div>
-          <h2 className="text-xl font-bold">Studio Settings</h2>
-          <p className="text-xs text-muted">Version token: {version || 'local'}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={onReload} disabled={isSaving} className="button button-secondary text-xs min-h-[44px]">Reload</button>
-          <button type="button" onClick={onLogout} disabled={isSaving} className="button button-secondary text-xs min-h-[44px]">Log out</button>
-          <button type="button" onClick={onSave} disabled={isSaving} className="button button-primary text-xs min-h-[44px]">
-            {isSaving ? 'Saving...' : 'Save changes'}
-          </button>
-        </div>
-      </div>
-      <fieldset disabled={isSaving} className="space-y-4 border-0 p-0 m-0">
-        <h3 className="text-lg font-semibold text-accent">Contact Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label className="block text-xs">
-            <span className="text-muted block mb-1">Phone display</span>
-            <input type="text" value={site.business.phoneDisplay} onChange={e => onUpdateSite(prev => ({
-              ...prev, business: { ...prev.business, phoneDisplay: e.target.value },
-            }))} className="w-full min-h-[44px] bg-secondary border border-border p-2 rounded text-sm text-foreground" />
+    <>
+      <section className="admin-card">
+        <h2>Contact details</h2>
+        <div className="admin-grid">
+          <label className="admin-field">Phone as shown
+            <input value={site.business.phoneDisplay} onChange={e => setBusiness({ phoneDisplay: e.target.value })} required />
           </label>
-          <label className="block text-xs">
-            <span className="text-muted block mb-1">E.164 Phone</span>
-            <input type="text" value={site.business.phone} onChange={e => onUpdateSite(prev => ({
-              ...prev, business: { ...prev.business, phone: e.target.value },
-            }))} className="w-full min-h-[44px] bg-secondary border border-border p-2 rounded text-sm text-foreground" />
+          <label className="admin-field">Phone for call links (+1 and 10 digits)
+            <input type="tel" value={site.business.phone} pattern="\+1[0-9]{10}" onChange={e => setBusiness({ phone: e.target.value })} required />
           </label>
-          <label className="block text-xs md:col-span-2">
-            <span className="text-muted block mb-1">Email address</span>
-            <input type="email" value={site.business.email} onChange={e => onUpdateSite(prev => ({
-              ...prev, business: { ...prev.business, email: e.target.value },
-            }))} className="w-full min-h-[44px] bg-secondary border border-border p-2 rounded text-sm text-foreground" />
+          <label className="admin-field">Email address
+            <input type="email" value={site.business.email} onChange={e => setBusiness({ email: e.target.value })} required />
           </label>
         </div>
-      </fieldset>
-      <details className="border border-border rounded p-4 bg-secondary" onToggle={e => {
-        if ((e.target as HTMLDetailsElement).open && !jsonText) syncJsonFromState();
-      }}>
-        <summary className="cursor-pointer text-sm font-semibold text-accent min-h-[44px] flex items-center">Advanced: Full Site JSON</summary>
-        <div className="mt-4 space-y-2">
-          <div className="flex gap-2">
-            <button type="button" onClick={syncJsonFromState} disabled={isSaving} className="button button-secondary text-xs min-h-[44px]">Load form into JSON</button>
-            <button type="button" onClick={applyJson} disabled={isSaving} className="button button-secondary text-xs min-h-[44px]">Apply JSON to form</button>
+      </section>
+      {children}
+      <details className="admin-card admin-json" onToggle={e => { if ((e.target as HTMLDetailsElement).open && !jsonDirty) syncJsonFromState(); }}>
+        <summary>Edit all site content (JSON)</summary>
+        <div className="admin-stack">
+          <p className="admin-note">Covers page text, FAQs and reviews. Apply your edits, then save changes.</p>
+          <textarea rows={16} value={jsonText} spellCheck={false} aria-label="Site content JSON" onChange={e => { setJsonText(e.target.value); onJsonDirty(true); }} />
+          <div className="admin-row">
+            <button type="button" onClick={applyJson} className="admin-button">Apply JSON</button>
+            <button type="button" onClick={syncJsonFromState} className="admin-button">Reset to form values</button>
+            <p role="status" className="admin-status" data-tone={jsonStatus && (jsonStatus.isError ? 'error' : 'success')}>{jsonStatus?.text}</p>
           </div>
-          <label className="block text-xs">
-            <span className="text-muted block mb-1">Site JSON configuration</span>
-            <textarea rows={8} value={jsonText} onChange={e => setJsonText(e.target.value)} disabled={isSaving} aria-label="Site JSON configuration" className="w-full font-mono text-xs bg-background border border-border p-3 rounded text-foreground" />
-          </label>
-          {jsonError && <p className="text-xs text-error">{jsonError}</p>}
         </div>
       </details>
-    </div>
+    </>
   );
 };
